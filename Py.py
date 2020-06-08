@@ -22,8 +22,19 @@ for sample in samples:
 
             # Loop trough individual characters
             for char in line:
-                keyboard.press(str(char))
-                time.sleep(.03)
+                try:
+                    keyboard.press(str(char))
+                    time.sleep(.02)
+                    keyboard.release(str(char))
+                    time.sleep(.02)
+                except KeyboardInterrupt:
+                    print('Interrupted')
+                    os._exit(0)
+                except:
+
+                    # Releasing \n causes an exception so we are just ignore that
+                    # FIXME
+                    pass
 
             # End the line
             keyboard.press(pynput.keyboard.Key.enter)
