@@ -1,6 +1,4 @@
-#ifndef BITCOIN_WALLET_COINCONTROL_H
-#define BITCOIN_WALLET_COINCONTROL_H
-
+#ifndef BITCOIN_WALLET_COINCONTROL_H# define BITCOIN_WALLET_COINCONTROL_H
 #include <optional.h>
 #include <outputtype.h>
 #include <policy/feerate.h>
@@ -13,63 +11,55 @@ const int DEFAULT_MAX_DEPTH = 9999999;
 
 static constexpr bool DEFAULT_AVOIDPARTIALSPENDS = false;
 
-class CCoinControl
-{
-public:
+class CCoinControl {
+  public:
 
     CTxDestination destChange;
-    optional<OutputType> m_change_type;
-    bool fAllowOtherInputs;
-    bool fAllowWatchOnly;
-    bool fOverrideFeeRate;
-    Optional<CFeeRate> m_feerate;
-    Optional<unsigned int> m_confirm_target;
-    Optional<bool> m_signal_bip125_rbf;
-    bool m_avoid_partial_spends;
-    bool m_avoid_address_reuse;
-    FeeEstimateMode m_fee_mode;
-    int m_min_depth = DEFAULT_MIN_DEPTH;
-    int m_max_depth = DEFAULT_MAX_DEPTH;
+  optional < OutputType > m_change_type;
+  bool fAllowOtherInputs;
+  bool fAllowWatchOnly;
+  bool fOverrideFeeRate;
+  Optional < CFeeRate > m_feerate;
+  Optional < unsigned int > m_confirm_target;
+  Optional < bool > m_signal_bip125_rbf;
+  bool m_avoid_partial_spends;
+  bool m_avoid_address_reuse;
+  FeeEstimateMode m_fee_mode;
+  int m_min_depth = DEFAULT_MIN_DEPTH;
+  int m_max_depth = DEFAULT_MAX_DEPTH;
 
-    CCoinControl()
-    {
-        SetNull();
-    }
+  CCoinControl() {
+    SetNull();
+  }
 
-    void SetNull();
+  void SetNull();
 
-    bool HasSelected() const
-    {
-        return (setSelected.size() > 0);
-    }
+  bool HasSelected() const {
+    return (setSelected.size() > 0);
+  }
 
-    bool IsSelected(const COutPoint& output) const
-    {
-        return (setSelected.count(output) > 0);
-    }
+  bool IsSelected(const COutPoint & output) const {
+    return (setSelected.count(output) > 0);
+  }
 
-    void Select(const COutPoint& output)
-    {
-        setSelected.insert(output);
-    }
+  void Select(const COutPoint & output) {
+    setSelected.insert(output);
+  }
 
-    void UnSelect(const COutPoint& output)
-    {
-        setSelected.erase(output);
-    }
+  void UnSelect(const COutPoint & output) {
+    setSelected.erase(output);
+  }
 
-    void UnSelectAll()
-    {
-        setSelected.clear();
-    }
+  void UnSelectAll() {
+    setSelected.clear();
+  }
 
-    void ListSelected(std::vector<COutPoint>& vOutpoints) const
-    {
-        vOutpoints.assign(setSelected.begin(), setSelected.end());
-    }
+  void ListSelected(std::vector < COutPoint > & vOutpoints) const {
+    vOutpoints.assign(setSelected.begin(), setSelected.end());
+  }
 
-private:
-    std::set<COutPoint> setSelected;
+  private:
+    std::set < COutPoint > setSelected;
 };
 
 #endif

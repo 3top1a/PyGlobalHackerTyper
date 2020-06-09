@@ -1,4 +1,5 @@
 # sudo pip install pynput
+import threading
 import pynput.keyboard
 import time
 import os.path
@@ -10,6 +11,15 @@ pathToSamples = "./Samples/"
 
 # https://stackoverflow.com/questions/3207219/how-do-i-list-all-files-of-a-directory#3207973
 samples = [f for f in os.listdir(pathToSamples) if os.path.isfile(os.path.join(pathToSamples, f))]
+
+
+# Run input() in a different thread
+def bar():
+    input()
+
+
+thread = threading.Thread(target=bar)
+thread.start()
 
 for sample in samples:
     with open(pathToSamples + sample) as f:
